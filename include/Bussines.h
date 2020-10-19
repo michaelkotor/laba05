@@ -10,12 +10,27 @@
 #include "Tourist.h"
 
 class Business : public IP, public Tourist {
-    char addresses[20][50];
+    char addresses[20][20];
+    int counterAddress;
 public:
     Business();
     ~Business();
 
+    char *getName() override;
+    char *getSurname() override;
+    int getDateOfBirth() override;
+
+    void setName(const char *name) override;
+    void setSurname(const char *surname) override;
+    void setDateOfBirth(int dateOfBirth) override;
+
+    void input(istream &in) override;
+    void output(ostream &out) const override;
+
     char* getAddresses();
+
+    int addAddress(const char* address);
+    void createNewAddress();
 };
 
 

@@ -77,8 +77,8 @@ void Tourist::output(ostream &out) const {
     cout << "numberOfPassport: "<< this->numberOfPassport << endl;
     cout << "dateOfBirth: "<< this->dateOfBirth << endl;
     for(int i = 0; i < this->counterCheckIns; i++) {
-        cout << "\tpayments[" << i << "].date = " << this->checkIns[i].date << endl;
-        cout << "\tpayments[" << i << "].country = " << this->checkIns[i].country << endl;
+        cout << "\tcheckIns[" << i << "].date = " << this->checkIns[i].date << endl;
+        cout << "\tcheckIns[" << i << "].country = " << this->checkIns[i].country << endl;
     }
     cout << "------------------------------------" << endl;
 }

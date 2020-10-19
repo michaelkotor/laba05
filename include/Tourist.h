@@ -14,7 +14,7 @@ struct CheckIn {
     char country[20];
 };
 
-class Tourist : public Man {
+class Tourist : public virtual Man {
 protected:
     char numberOfPassport[20];
     int counterCheckIns;
@@ -40,8 +40,8 @@ public:
 
     void setNumberOfPassport(const char* numberOfPassport);
 
-    int addCheckIn(CheckIn& checkIn);
-    void createNewCheckIn();
+    virtual int addCheckIn(CheckIn& checkIn);
+    virtual void createNewCheckIn();
 };
 
 

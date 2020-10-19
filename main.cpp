@@ -8,11 +8,11 @@
 using namespace std;
 
 int main() {
-    cout << "Hello, World!" << endl;
-//
 //    Man* people[3];
 //
 //    for(auto & i : people) {
+//        cout << "Hello!" << endl;
+//        cout << "\t1. Create new IP" << endl << "\t2. Create new Tourist" << endl << "\t3. Create new Business" << endl;
 //        int choise;
 //        cin >> choise;
 //        switch (choise) {
@@ -25,8 +25,8 @@ int main() {
 //                cin >> *i;
 //                break;
 //            case 3:
-//                //people[i] = new Business;
-//                //cin >> *people[i];
+//                i = new Business;
+//                cin >> *i;
 //                break;
 //            case 0:
 //                exit(0);
@@ -37,11 +37,12 @@ int main() {
 //        cout<< *i << endl;
 //    }
 
-    IP* man = new IP;
-    //cin >> *man;
+    Business* man = new Business;
+    cin >> *man;
+    man->createNewAddress();
     man->createNewPayment();
-    man->createNewPayment();
-    man->createNewPayment();
+    man->createNewCheckIn();
+
     cout << *man;
 
 

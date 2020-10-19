@@ -16,7 +16,7 @@ struct Payment {
     int value;
 };
 
-class IP : public Man {
+class IP : public virtual Man {
 protected:
     int numberOfLinsence;
     char address[20];
@@ -44,8 +44,8 @@ public:
     void setNumberOfLinsence(int numberOfLinsence);
     void setAddress(const char *address);
 
-    int addPayment(Payment& payment);
-    void createNewPayment();
+    virtual int addPayment(Payment& payment);
+    virtual void createNewPayment();
 };
 
 
