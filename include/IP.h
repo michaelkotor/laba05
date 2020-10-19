@@ -30,12 +30,12 @@ public:
     char *getSurname() override;
     int getDateOfBirth() override;
 
-    void setName(char *name) override;
-    void setSurname(char *surname) override;
+    void setName(const char *name) override;
+    void setSurname(const char *surname) override;
     void setDateOfBirth(int dateOfBirth) override;
 
     void input(istream &in) override;
-    void output(ostream &out) override;
+    void output(ostream &out) const override;
 
     int getNumberOfLinsence();
     char *getAddress();

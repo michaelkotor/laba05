@@ -56,11 +56,11 @@ int IP::getDateOfBirth() {
     return this->dateOfBirth;
 }
 
-void IP::setName(char *name) {
+void IP::setName(const char *name) {
     strcpy(this->name, name);
 }
 
-void IP::setSurname(char *surname) {
+void IP::setSurname(const char *surname) {
     strcpy(this->surname, surname);
 }
 
@@ -69,7 +69,10 @@ void IP::setDateOfBirth(int dadateOfBirthte) {
 }
 
 void IP::input(istream &in) {
+
     cout << "Enter name: " << endl;
+    cin.clear();
+
     in.getline(this->name, 20);
 
     cout << "Enter surname: " << endl;
@@ -85,7 +88,7 @@ void IP::input(istream &in) {
     in >> this->dateOfBirth;
 }
 
-void IP::output(ostream &out) {
+void IP::output(ostream &out) const {
     cout << "------------------------------------" << endl;
     cout << "name: "<< this->name << endl;
     cout << "surname: "<< this->surname << endl;

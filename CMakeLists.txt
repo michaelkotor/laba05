@@ -3,6 +3,8 @@ project(laba05)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(CMAKE_CXX_FLAGS "-Werror -Wall ")
+
 include_directories(include)
 
 add_executable(laba05
