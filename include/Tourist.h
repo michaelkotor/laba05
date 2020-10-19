@@ -39,6 +39,9 @@ public:
     CheckIn* getCheckIns();
 
     void setNumberOfPassport(const char* numberOfPassport);
+
+    int addCheckIn(CheckIn& checkIn);
+    void createNewCheckIn();
 };
 
 

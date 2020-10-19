@@ -32,6 +32,8 @@ public:
 
     virtual void input(istream &in) = 0;
     virtual void output(ostream &out) const = 0;
+
+
 };
 
 

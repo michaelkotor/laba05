@@ -82,3 +82,22 @@ void Tourist::output(ostream &out) const {
     }
     cout << "------------------------------------" << endl;
 }
+
+int Tourist::addCheckIn(CheckIn &checkIn) {
+    this->checkIns[this->counterCheckIns++] = checkIn;
+    return this->counterCheckIns;
+}
+
+void Tourist::createNewCheckIn() {
+    cin.clear();
+    while (cin.get() != '\n')
+    {
+        continue;
+    }
+    CheckIn checkIn;
+    cout << "Enter date" << endl;
+    cin.getline(checkIn.date, 20);
+    cout << "Enter country" << endl;
+    cin.getline(checkIn.country, 20);
+    addCheckIn(checkIn);
+}

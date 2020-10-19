@@ -11,13 +11,13 @@ using namespace std;
 IP::IP() : Man("Michael", "Kotor", 2001) {
     this->numberOfLinsence = 100;
     strcpy(this->address, "Some address");
-    this->counter = 0;
+    this->counterPayments = 0;
 }
 
 IP::IP(int numberOfLinsence, char *address) : Man("Michael", "Kotor", 2001) {
     this->numberOfLinsence = numberOfLinsence;
     strcpy(this->address, address);
-    this->counter = 0;
+    this->counterPayments = 0;
 }
 
 int IP::getNumberOfLinsence() {
@@ -32,12 +32,12 @@ Payment *IP::getPayments() {
     return this->payments;
 }
 
-void IP::setNumberOfLinsence(int numberOfLinsence) {
-    this->numberOfLinsence = numberOfLinsence;
+void IP::setNumberOfLinsence(int numberOfLinsence1) {
+    this->numberOfLinsence = numberOfLinsence1;
 }
 
-void IP::setAddress(char *address) {
-    strcpy(this->address, address);
+void IP::setAddress(const char *address1) {
+    strcpy(this->address, address1);
 }
 
 IP::~IP() {
@@ -95,9 +95,28 @@ void IP::output(ostream &out) const {
     cout << "address: "<< this->address << endl;
     cout << "numberOfLinsence: "<< this->numberOfLinsence << endl;
     cout << "dateOfBirth: "<< this->dateOfBirth << endl;
-    for(int i = 0; i < this->counter; i++) {
+    for(int i = 0; i < this->counterPayments; i++) {
         cout << "\tpayments[" << i << "].date = " << this->payments[i].date << endl;
         cout << "\tpayments[" << i << "].value = " << this->payments[i].value << endl;
     }
     cout << "------------------------------------" << endl;
+}
+
+int IP::addPayment(Payment& payment) {
+    this->payments[this->counterPayments++] = payment;
+    return this->counterPayments;
+}
+
+void IP::createNewPayment() {
+    cin.clear();
+    while (cin.get() != '\n')
+    {
+        continue;
+    }
+    Payment payment;
+    cout << "Enter date" << endl;
+    cin.getline(payment.date, 20);
+    cout << "Enter value" << endl;
+    cin >> payment.value;
+    addPayment(payment);
 }

@@ -17,10 +17,11 @@ struct Payment {
 };
 
 class IP : public Man {
+protected:
     int numberOfLinsence;
     char address[20];
     Payment payments[20];
-    int counter;
+    int counterPayments;
 public:
     IP();
     IP(int numberOfLinsence, char* address);
@@ -41,7 +42,10 @@ public:
     char *getAddress();
     Payment *getPayments();
     void setNumberOfLinsence(int numberOfLinsence);
-    void setAddress(char *address);
+    void setAddress(const char *address);
+
+    int addPayment(Payment& payment);
+    void createNewPayment();
 };
 
 
