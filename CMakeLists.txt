@@ -12,9 +12,15 @@ add_executable(laba05
         include/IP.h
         include/Man.h
         include/Tourist.h
+        include/CustomException.h
+        include/ValidateString.h
+        include/InputException.h
         src/Bussines.cpp
         src/IP.cpp
         src/Man.cpp
         src/Tourist.cpp
         CMakeLists.txt
-        main.cpp)
+        main.cpp
+        src/CustomException.cpp
+        src/InputException.cpp
+        src/ValidateString.cpp)

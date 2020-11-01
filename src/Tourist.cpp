@@ -4,11 +4,14 @@
 
 #include "../include/Tourist.h"
 #include "cstring"
+#include <iostream>
+#include <iomanip>
+#include <ValidateString.h>
+#include <InputException.h>
 
 using namespace std;
 
 Tourist::Tourist() : Man("Michael", "Kotor", 2001) {
-    (void) this->checkIns;
     strcpy(this->numberOfPassport, "Some number");
 }
 
@@ -56,31 +59,92 @@ void Tourist::setNumberOfPassport(const char *numberOfPassport1) {
     strcpy(this->numberOfPassport, numberOfPassport1);
 }
 
-void Tourist::input(istream &in) {
-    cout << "Enter name: " << endl;
-    in.getline(this->name, 20);
+void Tourist::input(istream &in) noexcept(false) {
+    ValidateString validateString;
 
-    cout << "Enter surname: " << endl;
-    in.getline(this->surname, 20);
+    bool isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter name: " << endl;
+            in.getline(this->name, 20);
+            validateString.validateStringEnglish(this->name, 20);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 
-    cout << "Enter numberOfPassport: " << endl;
-    in.getline(this->numberOfPassport, 20);
+    isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter surname: " << endl;
+            in.getline(this->surname, 20);
+            validateString.validateStringEnglish(this->surname, 20);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 
-    cout << "Enter dateOfBirth(YEAR): " << endl;
-    in >> this->dateOfBirth;
+    isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter numberOfPassport: " << endl;
+            in.getline(this->numberOfPassport, 20);
+            if(in.fail()) {
+                in.clear();
+                in.ignore(256,'\n');
+                throw InputException("Invalid char!");
+            }
+            validateString.validateStringEnglish(this->numberOfPassport, 20);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter dateOfBirth(YEAR): " << endl;
+            in >> this->dateOfBirth;
+            if(in.fail()) {
+                in.clear();
+                in.ignore(256,'\n');
+                throw InputException("Invalid char!");
+            }
+            validateString.validateInteger(this->dateOfBirth);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 }
 
 void Tourist::output(ostream &out) const {
-    cout << "------------------------------------" << endl;
-    cout << "name: "<< this->name << endl;
-    cout << "surname: "<< this->surname << endl;
-    cout << "numberOfPassport: "<< this->numberOfPassport << endl;
-    cout << "dateOfBirth: "<< this->dateOfBirth << endl;
-    for(int i = 0; i < this->counterCheckIns; i++) {
-        cout << "\tcheckIns[" << i << "].date = " << this->checkIns[i].date << endl;
-        cout << "\tcheckIns[" << i << "].country = " << this->checkIns[i].country << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "Name" << "|" << setw(20) << right << this->name << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "Surname" << "|" << setw(20) << right << this->surname << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "NumberOfPassport" << "|"  << setw(20) << right << this->numberOfPassport << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "DateOfBirth" << "|" << setw(20) << right << this->dateOfBirth << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    if(this->counterCheckIns > 0) {
+        cout << left << "|" << setw(21) << right << "CheckIns"  << setw(21) << right << setfill(' ') << "|" << endl;
+        cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
     }
-    cout << "------------------------------------" << endl;
+    for(int i = 0; i < this->counterCheckIns; i++) {
+        cout << left << "|" << setw(20) << "Date" << "|" << setw(20) << right << this->checkIns[i].date << "|" << endl;
+        cout << left << "|" << setw(20) << "Country" << "|" << setw(20) << right << this->checkIns[i].country << "|" << endl;
+        cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+    }
 }
 
 int Tourist::addCheckIn(CheckIn &checkIn) {

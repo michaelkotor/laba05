@@ -5,6 +5,9 @@
 #include "../include/IP.h"
 #include "cstring"
 #include <iostream>
+#include <iomanip>
+#include <InputException.h>
+#include <ValidateString.h>
 
 using namespace std;
 
@@ -68,38 +71,105 @@ void IP::setDateOfBirth(int dadateOfBirthte) {
     this->dateOfBirth = dateOfBirth;
 }
 
-void IP::input(istream &in) {
+void IP::input(istream &in) noexcept(false) {
+    ValidateString validateString;
 
-    cout << "Enter name: " << endl;
-    cin.clear();
+    bool isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter name: " << endl;
+            in.getline(this->name, 20);
+            validateString.validateStringEnglish(this->name, 20);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 
-    in.getline(this->name, 20);
+    isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter surname: " << endl;
+            in.getline(this->surname, 20);
+            validateString.validateStringEnglish(this->surname, 20);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 
-    cout << "Enter surname: " << endl;
-    in.getline(this->surname, 20);
+    isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter city: " << endl;
+            in.getline(this->address, 20);
+            validateString.validateStringEnglish(this->address, 20);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 
-    cout << "Enter address: " << endl;
-    in.getline(this->address, 20);
+    isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter numberOfLinsence: " << endl;
+            in >> this->numberOfLinsence;
+            if(in.fail()) {
+                in.clear();
+                in.ignore(256,'\n');
+                throw InputException("Invalid char!");
+            }
+            validateString.validateInteger(this->numberOfLinsence);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 
-    cout << "Enter numberOfLinsence: " << endl;
-    in >> this->numberOfLinsence;
-
-    cout << "Enter dateOfBirth(YEAR): " << endl;
-    in >> this->dateOfBirth;
+    isBroken = true;
+    while(isBroken) {
+        try {
+            cout << "Enter dateOfBirth(YEAR): " << endl;
+            in >> this->dateOfBirth;
+            if(in.fail()) {
+                in.clear();
+                in.ignore(256,'\n');
+                throw InputException("Invalid char!");
+            }
+            validateString.validateInteger(this->dateOfBirth);
+            isBroken = false;
+        } catch (InputException &e) {
+            cout << e.what() << endl;
+        }
+    }
 }
 
 void IP::output(ostream &out) const {
-    cout << "------------------------------------" << endl;
-    cout << "name: "<< this->name << endl;
-    cout << "surname: "<< this->surname << endl;
-    cout << "address: "<< this->address << endl;
-    cout << "numberOfLinsence: "<< this->numberOfLinsence << endl;
-    cout << "dateOfBirth: "<< this->dateOfBirth << endl;
-    for(int i = 0; i < this->counterPayments; i++) {
-        cout << "\tpayments[" << i << "].date = " << this->payments[i].date << endl;
-        cout << "\tpayments[" << i << "].value = " << this->payments[i].value << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "Name" << "|" << setw(20) << right << this->name << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "Surname" << "|" << setw(20) << right << this->surname << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "NumberOfLinsence" << "|"  << setw(20) << right << this->numberOfLinsence << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    cout << left << "|" << setw(20) << "DateOfBirth" << "|" << setw(20) << right << this->dateOfBirth << "|" << endl;
+    cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+
+    if(this->counterPayments > 0) {
+        cout << left << "|" << setw(21) << right << "Payments"  << setw(21) << right << setfill(' ') << "|" << endl;
+        cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
     }
-    cout << "------------------------------------" << endl;
+    for(int i = 0; i < this->counterPayments; i++) {
+        cout << left << "|" << setw(20) << "Date" << "|" << setw(20) << right << this->payments[i].date << "|" << endl;
+        cout << left << "|" << setw(20) << "Value" << "|" << setw(20) << right << this->payments[i].value << "|" << endl;
+        cout << setw(43) << setfill('-') << '-' << endl << setfill(' ');
+    }
+
 }
 
 int IP::addPayment(Payment& payment) {

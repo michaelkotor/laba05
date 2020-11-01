@@ -1,0 +1,90 @@
+@startuml
+
+abstract class Man
+class IP
+class Tourist
+class Bussines
+
+
+Man <|-- IP
+Man <|-- Tourist
+
+IP <|-- Bussines
+Tourist <|-- Bussines
+
+class Man {
+    char name[20];
+    char surname[20];
+    int dateOfBirth;
+
+    Man();
+    Man(const char* name, const char* surname, int dateOfBirth);
+    virtual ~Man();
+
+    virtual char* getName() = 0;
+    virtual char* getSurname() = 0;
+    virtual int getDateOfBirth() = 0;
+
+    virtual void setName(const char* name) = 0;
+    virtual void setSurname(const char* surname) = 0;
+    virtual void setDateOfBirth(int dateOfBirth) = 0;
+
+    friend ostream& operator<<(ostream &out, const Man& man);
+    friend istream& operator>>(istream &in, Man& man);
+
+    virtual void input(istream &in) = 0;
+    virtual void output(ostream &out) const = 0;
+}
+
+class IP {
+int numberOfLinsence;
+    char address[20];
+    Payment payments[20];
+    int counterPayments;
+
+    IP();
+    IP(int numberOfLinsence, char* address);
+    ~IP();
+
+    int getNumberOfLinsence();
+    char *getAddress();
+    Payment *getPayments();
+    void setNumberOfLinsence(int numberOfLinsence);
+    void setAddress(const char *address);
+
+    virtual int addPayment(Payment& payment);
+    virtual void createNewPayment();
+}
+
+class Tourist {
+    char numberOfPassport[20];
+    int counterCheckIns;
+    CheckIn checkIns[20];
+
+    Tourist();
+    Tourist(const char* numberOfPassport);
+    ~Tourist();
+
+    char* getNumberOfPassport();
+    CheckIn* getCheckIns();
+
+    void setNumberOfPassport(const char* numberOfPassport);
+
+    virtual int addCheckIn(CheckIn& checkIn);
+    virtual void createNewCheckIn();
+}
+
+class Bussines {
+    char addresses[20][20];
+    int counterAddress;
+
+    Business();
+    ~Business();
+
+    char* getAddresses();
+
+    int addAddress(const char* address);
+    void createNewAddress();
+}
+
+@enduml

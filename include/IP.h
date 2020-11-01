@@ -35,8 +35,10 @@ public:
     void setSurname(const char *surname) override;
     void setDateOfBirth(int dateOfBirth) override;
 
-    void input(istream &in) override;
+    void input(istream &in) noexcept(false) override;
     void output(ostream &out) const override;
+
+    void getParam();
 
     int getNumberOfLinsence();
     char *getAddress();

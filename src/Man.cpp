@@ -7,13 +7,13 @@
 
 Man::Man() {
     strcpy(this->name, "Michael");
-    strcpy(this->name, "Kotor");
+    strcpy(this->surname, "Kotor");
     this->dateOfBirth = 2001;
 }
 
 Man::Man(const char *name, const char *surname, int dateOfBirth) {
     strcpy(this->name, name);
-    strcpy(this->name, surname);
+    strcpy(this->surname, surname);
     this->dateOfBirth = dateOfBirth;
 }
 
