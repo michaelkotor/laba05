@@ -113,6 +113,9 @@ void Tourist::input(istream &in) noexcept(false) {
                 in.ignore(256,'\n');
                 throw InputException("Invalid char!");
             }
+            if(in.get() != '\n') {
+                throw InputException("Invalid char!");
+            }
             validateString.validateInteger(this->dateOfBirth);
             isBroken = false;
         } catch (InputException &e) {

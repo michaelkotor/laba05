@@ -120,10 +120,14 @@ void IP::input(istream &in) noexcept(false) {
                 in.ignore(256,'\n');
                 throw InputException("Invalid char!");
             }
+            if(in.get() != '\n') {
+                throw InputException("Invalid char!");
+            }
             validateString.validateInteger(this->numberOfLinsence);
             isBroken = false;
         } catch (InputException &e) {
             cout << e.what() << endl;
+            throw;
         }
     }
 
@@ -135,7 +139,10 @@ void IP::input(istream &in) noexcept(false) {
             if(in.fail()) {
                 in.clear();
                 in.ignore(256,'\n');
-                throw InputException("Invalid char!");
+                throw InputException("The number seems not to be an INT");
+            }
+            if(in.get() != '\n') {
+                throw InputException("Number goes out of range!");
             }
             validateString.validateInteger(this->dateOfBirth);
             isBroken = false;

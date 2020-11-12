@@ -3,7 +3,8 @@ project(laba05)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_CXX_FLAGS "-Werror -Wall ")
+#set(CMAKE_CXX_FLAGS "-Werror -Wall ")
+set(CMAKE_CXX_COMPILER clang++)
 
 include_directories(include)
 
@@ -23,4 +24,5 @@ add_executable(laba05
         main.cpp
         src/CustomException.cpp
         src/InputException.cpp
-        src/ValidateString.cpp)
+        src/ValidateString.cpp
+        include/Queue.h src/Iterator.cpp include/Iterator.h include/Node.h include/Collections.h)

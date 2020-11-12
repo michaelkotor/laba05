@@ -50,7 +50,7 @@ void Business::setDateOfBirth(int dateOfBirth) {
     Tourist::setDateOfBirth(dateOfBirth);
 }
 
-void Business::input(istream &in) noexcept(false){
+void Business::input(istream &in) noexcept(false) {
     ValidateString validateString;
 
     bool isBroken = true;
@@ -116,6 +116,9 @@ void Business::input(istream &in) noexcept(false){
                 in.ignore(256,'\n');
                 throw InputException("Invalid char!");
             }
+            if(in.get() != '\n') {
+                throw InputException("Invalid char!");
+            }
             validateString.validateInteger(this->numberOfLinsence);
             isBroken = false;
         } catch (InputException &e) {
@@ -131,6 +134,9 @@ void Business::input(istream &in) noexcept(false){
             if(in.fail()) {
                 in.clear();
                 in.ignore(256,'\n');
+                throw InputException("Invalid char!");
+            }
+            if(in.get() != '\n') {
                 throw InputException("Invalid char!");
             }
             validateString.validateInteger(this->dateOfBirth);
